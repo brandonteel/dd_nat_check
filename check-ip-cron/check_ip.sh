@@ -3,11 +3,10 @@
 # requires a volume mounted to /var/check_ip
 # 2025-02-13 brandon teel | brandon.teel@telus.com
 
-HEALTHCHECK_PORT=$1
 CHECK_FILE="/var/check_ip/check_ip"
 OLD_IP=""
 CURR_DATE=`date -Iseconds`
-NEW_IP=`curl -s ipv4.icanhazip.com || err "Can't get current NAT IP" "1"`
+NEW_IP=`curl -s ipv4.icanhazip.com`
 
 function printmsg(){
     status="$1"
@@ -29,14 +28,8 @@ function msg(){
     printmsg "OK" "$message"
 }
 
-curl http://127.0.0.1:${HEALTHCHECK_PORT} >/dev/null || \
-err "HTTP server not serving healthcheck at port ${HEALTHCHECK_PORT}" "2"
-
-
 if [ -f $CHECK_FILE ]; then
     OLD_IP=`cat $CHECK_FILE`
-else
-    touch "$CHECK_FILE" || err "Check file not accessible" "3"
 fi
 
 if [ "$NEW_IP" != "$OLD_IP" ]; then
