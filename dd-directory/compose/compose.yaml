@@ -1,0 +1,6 @@
+services:
+  dd_natip:
+    image: dd_natip:latest
+    container_name: dd_natip_check
+    env_file:
+      - ./dd_natip.env
