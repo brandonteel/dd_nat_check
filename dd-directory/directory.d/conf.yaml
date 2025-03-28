@@ -1,12 +1,12 @@
 init_config:
 
 instances:
-  ## @param directory - string - required
-  ## The directory to monitor. On windows, please make sure you escape back-slashes otherwise the YAML
-  ## parser fails (eg. - directory: "C:\\Users\\foo\\Downloads").
-  #
-  - directory: "/var/check_ip"
+  - directory: "/var/checks/check_ip"
     name: check_nat_ip
-  
-  - directory: "/var/check_ip/check_ip"
-    name: check_nat_ip_file
+    tags:
+      - directory:check_ip
+
+  - directory: "/var/checks/still_alive"
+    name: check_nat_ip_alive
+    tags:
+      - directory:still_alive

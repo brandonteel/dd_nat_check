@@ -5,7 +5,7 @@ LABEL maintainer="brandon.teel@telus.com"
 LABEL build_date="2025-03-12"
 
 # volume mount point for dir to output IP changes
-VOLUME ["/var/check_ip"]
+VOLUME ["/var/checks"]
 
 # add curl
 RUN apk add --no-cache curl
