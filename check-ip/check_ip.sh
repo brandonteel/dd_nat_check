@@ -35,7 +35,7 @@ function msg(){
     printmsg "OK" "$message"
 }
 
-if [ -f ${CHECK_DIR}/check_ip ]; then
+if [ -f ${CHECK_DIR}/check_ip/check_ip ]; then
     OLD_IP=`cat ${CHECK_DIR}/check_ip/check_ip`
 fi
 
