@@ -1,9 +1,15 @@
-FROM datadog/agent:7.62.3-rc.1-linux
+FROM gcr.io/datadoghq/agent:current
 LABEL name="dd-directory"
-LABEL version="0.4"
+LABEL version="1.0"
 LABEL maintainer="brandon.teel@telus.com"
 LABEL build_date="2025-03-31"
-#2025-04-31 0.4 - hopefully shutdown gracefully
+# datadog agent running the dd-directory module, monitoring directory changes at /var/checks/check_ip and
+# /var/checks/still_alive
+# meant to run in tandem with check-ip container, to produce metrics determining if a NAT IP has changed.
+# the /var/checks/still_alive check produces metrics to monitor whether the check-ip container is working as expected
+#
+#2025-03-31 0.4 - hopefully shutdown gracefully
+#2025-04-02 1.0 - release version
 
 ENV SHUTDOWN_SECONDS=86220
 

@@ -1,6 +1,6 @@
 #!/bin/sh
 # check_ip.sh | check external ip and modify a file if it has been changed
-# requires a volume mounted to /var/check_ip
+# requires a volume mounted to /var/checks
 # 2025-02-13 brandon teel | brandon.teel@telus.com
 # 2025-04-27 - added some extra functions for later, liveness check
 
