@@ -82,7 +82,7 @@ This setup allows for automated monitoring of NAT IP changes and the health of t
 - This is set to 23 hours and 57 minutes because Cloud Run Jobs can only run for 1 day before being forcibly shut down. A Cloud Scheduler job can be set up to restart this container every day, and it will shut down gracefully 3 minutes before it hits the limit. If this is not set, you'll see errors in the Cloud Run logs when the container is forced to shut down every night, and it may prevent the new instance from starting up. See the page on [Confluence](https://telushealth.atlassian.net/wiki/spaces/EO/pages/160694353/Scheduling+Job)
 
 # Datadog Monitor
-- **Monitor IP**: avg(last_5m):avg:system.disk.directory.file.modified_sec_ago.median{monitor:natip} by {monitor} <= 300
+- **Monitor IP**: `avg(last_5m):avg:system.disk.directory.file.modified_sec_ago.median{monitor:natip} by {monitor} <= 300`
   - This will alert if the file in /var/checks/check_ip has changed in the last 5 minutes, indicating that the NAT IP has changed
-- **Monitor Liveness**: avg(last_5m):avg:system.disk.directory.file.modified_sec_ago.median{monitor:natip} by {monitor} >= 600
+- **Monitor Liveness**: `avg(last_5m):avg:system.disk.directory.file.modified_sec_ago.median{monitor:natip} by {monitor} >= 600`
   - This will alert if the file in  `/var/checks/still_alive` has not updated in the past 10 minutes, indicating that the check-ip container has not been updating the file it uses to verify its liveness.
