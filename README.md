@@ -68,20 +68,20 @@ The agent is configured to monitor two instances:
 
 This setup allows for automated monitoring of NAT IP changes and the health of the monitoring system itself through Datadog metrics and alerts.
 
-# Cloud Run Considerations
+## Cloud Run Considerations
 
-## Deployment
+### Deployment
 - **gcloud**: [Confluence](https://telushealth.atlassian.net/wiki/spaces/EO/pages/160759883/Gcloud+Commands#Create-Job)
 - **yaml**: [Confluence](https://telushealth.atlassian.net/wiki/spaces/EO/pages/160759902/Creating+Job+with+YAML)
 
-## Scheduling
+### Scheduling
 - check-ip should be scheduled to run regularly, eg. 5 minute intervals
 - dd-directory should be scheduled to run once every 24 hours. See [SHUTDOWN_SECONDS](#SHUTDOWN_SECONDS)
 
-## SHUTDOWN_SECONDS
+### SHUTDOWN_SECONDS
 - This is set to 23 hours and 57 minutes because Cloud Run Jobs can only run for 1 day before being forcibly shut down. A Cloud Scheduler job can be set up to restart this container every day, and it will shut down gracefully 3 minutes before it hits the limit. If this is not set, you'll see errors in the Cloud Run logs when the container is forced to shut down every night, and it may prevent the new instance from starting up. See the page on [Confluence](https://telushealth.atlassian.net/wiki/spaces/EO/pages/160694353/Scheduling+Job)
 
-# Datadog Monitor
+## Datadog Monitor
 - **Monitor IP**: `avg(last_5m):avg:system.disk.directory.file.modified_sec_ago.median{monitor:natip} by {monitor} <= 300`
   - This will alert if the file in /var/checks/check_ip has changed in the last 5 minutes, indicating that the NAT IP has changed
 - **Monitor Liveness**: `avg(last_5m):avg:system.disk.directory.file.modified_sec_ago.median{monitor:natip} by {monitor} >= 600`
